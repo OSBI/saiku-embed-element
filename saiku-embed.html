@@ -18,6 +18,8 @@
 
   <script>
     class SaikuEmbed extends Polymer.Element {
+      // Called when the element is upgraded (that is, when an element is created,
+      // or when a previously-created element becomes defined).
       constructor() {
         super();
       }
@@ -28,6 +30,7 @@
 
       static get properties() {
         return {
+          url: String,
           username: String,
           password: String,
           plugin: {
@@ -41,6 +44,7 @@
 
       static get observedAttributes() {
         return [
+          url,
           username,
           password,
           plugin,
@@ -49,11 +53,89 @@
         ];
       }
 
-      // Called when the element is added to a document.
+      // Invoked the first time the element is added to the DOM
+      ready() {
+        if (!this.url) {
+          this.textContent = 'The url propertie was not included';
+        }
+        else if (!this.username && !this.password) {
+          this.textContent = 'The username and password properties was not included';
+        }
+      }
+
+      // Called when the element is added to a document
       connectedCallback() {
         const iframe = this.shadowRoot.querySelector('iframe');
         iframe.width = `${this.width}px`;
         iframe.height = `${this.height}px`;
+        iframe.src = this.getInlineFrameSource();
+      }
+
+      attributeChangedCallback(attributeName, oldValue, newValue) {
+        const iframe = this.shadowRoot.querySelector('iframe');
+        switch (attributeName) {
+          case 'width':
+          case 'height':
+            iframe[attributeName] = `${newValue}px`;
+            break;
+          default:
+            iframe.src = this.getInlineFrameSource();
+            break;
+        }
+      }
+
+      get url() {
+        return this.getAttribute('url');
+      }
+
+      set url(newValue) {
+        this.setAttribute('url', newValue);
+      }
+
+      get username() {
+        return this.getAttribute('username');
+      }
+
+      set username(newValue) {
+        this.setAttribute('username', newValue);
+      }
+
+      get password() {
+        return this.getAttribute('password');
+      }
+
+      set password(newValue) {
+        this.setAttribute('password', newValue);
+      }
+
+      get plugin() {
+        return this.getAttribute('plugin');
+      }
+
+      set plugin(newValue) {
+        this.setAttribute('plugin', newValue);
+      }
+
+      get width() {
+        return this.getAttribute('width');
+      }
+
+      set width(newValue) {
+        this.setAttribute('width', newValue);
+      }
+
+      get height() {
+        return this.getAttribute('height');
+      }
+
+      set height(newValue) {
+        this.setAttribute('height', newValue);
+      }
+
+      getInlineFrameSource() {
+        let src = `${this.url}?username=${this.username}&password=${this.password}`;
+
+        return decodeURIComponent(src);
       }
     }
 
