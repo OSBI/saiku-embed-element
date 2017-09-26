@@ -1,0 +1,62 @@
+<link rel="import" href="./bower_components/polymer/polymer.html">
+
+<dom-module id="saiku-embed">
+  <template>
+    <!-- Scoped CSS for this element -->
+    <style>
+      :host {
+        display: block;
+        width: 100%;
+      }
+    </style>
+    <div>
+      <!-- Any children are rendered here -->
+      <slot></slot>
+      <iframe allowtransparency="true" frameborder="0" scrolling="no"></iframe>
+    </div>
+  </template>
+
+  <script>
+    class SaikuEmbed extends Polymer.Element {
+      constructor() {
+        super();
+      }
+
+      static get is() {
+        return 'saiku-embed';
+      }
+
+      static get properties() {
+        return {
+          username: String,
+          password: String,
+          plugin: {
+            type: Boolean,
+            value: false
+          },
+          width: Number,
+          height: Number
+        };
+      }
+
+      static get observedAttributes() {
+        return [
+          username,
+          password,
+          plugin,
+          width,
+          height
+        ];
+      }
+
+      // Called when the element is added to a document.
+      connectedCallback() {
+        const iframe = this.shadowRoot.querySelector('iframe');
+        iframe.width = `${this.width}px`;
+        iframe.height = `${this.height}px`;
+      }
+    }
+
+    customElements.define(SaikuEmbed.is, SaikuEmbed);
+  </script>
+</dom-module>
