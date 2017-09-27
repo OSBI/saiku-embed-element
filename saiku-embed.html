@@ -22,6 +22,10 @@
       // or when a previously-created element becomes defined).
       constructor() {
         super();
+
+        this.attachShadow({
+          mode: 'open'
+        }).innerHTML = SaikuEmbed.template.innerHTML;
       }
 
       static get is() {
@@ -33,10 +37,7 @@
           url: String,
           username: String,
           password: String,
-          plugin: {
-            type: Boolean,
-            value: false
-          },
+          plugin: Boolean,
           width: Number,
           height: Number
         };
@@ -44,26 +45,26 @@
 
       static get observedAttributes() {
         return [
-          url,
-          username,
-          password,
-          plugin,
-          width,
-          height
+          'url',
+          'username',
+          'password',
+          'plugin',
+          'width',
+          'height'
         ];
       }
 
-      // Invoked the first time the element is added to the DOM
+      // Invoked the first time the element is added to the DOM.
       ready() {
         if (!this.url) {
-          this.textContent = 'The url propertie was not included';
+          this.textContent = 'The url property was not included';
         }
         else if (!this.username && !this.password) {
           this.textContent = 'The username and password properties was not included';
         }
       }
 
-      // Called when the element is added to a document
+      // Called when the element is added to a document.
       connectedCallback() {
         const iframe = this.shadowRoot.querySelector('iframe');
         iframe.width = `${this.width}px`;
@@ -71,6 +72,7 @@
         iframe.src = this.getInlineFrameSource();
       }
 
+      // Called when any of the element's attributes are changed, appended, removed, or replaced.
       attributeChangedCallback(attributeName, oldValue, newValue) {
         const iframe = this.shadowRoot.querySelector('iframe');
         switch (attributeName) {
@@ -133,7 +135,7 @@
       }
 
       getInlineFrameSource() {
-        let src = `${this.url}?username=${this.username}&password=${this.password}`;
+        let src = `${this.url}?username=${this.username}&password=${this.password}&plugin=${this.plugin}`;
 
         return decodeURIComponent(src);
       }
