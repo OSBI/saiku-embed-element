@@ -1,4 +1,5 @@
-<link rel="import" href="./bower_components/polymer/polymer.html">
+<!-- <link rel="import" href="../polymer/polymer-element.html"> -->
+<link rel="import" href="./bower_components/polymer/polymer-element.html">
 
 <dom-module id="saiku-embed">
   <template>
@@ -12,20 +13,31 @@
     <div>
       <!-- Any children are rendered here -->
       <slot></slot>
-      <iframe allowtransparency="true" frameborder="0" scrolling="no"></iframe>
+      <iframe allowtransparency="true" frameborder="0" scrolling="auto"></iframe>
     </div>
   </template>
 
   <script>
+    /**
+     * `saiku-embed`
+     * A web component to embed Saiku Analytics
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
     class SaikuEmbed extends Polymer.Element {
-      // Called when the element is upgraded (that is, when an element is created,
-      // or when a previously-created element becomes defined).
       constructor() {
         super();
 
         this.attachShadow({
           mode: 'open'
         }).innerHTML = SaikuEmbed.template.innerHTML;
+
+
+        if (!this.url) {
+          this.textContent = 'The url attribute is not included. Go to https://github.com/OSBI/saiku-embed-element#saiku-embed-element and see the documentation.';
+        }
       }
 
       static get is() {
@@ -37,9 +49,12 @@
           url: String,
           username: String,
           password: String,
-          plugin: Boolean,
-          width: Number,
-          height: Number
+          width: { type: String, value: '800' },
+          height: { type: String, value: '600' },
+          splash: Boolean,
+          schema: String,
+          cube: String,
+          plugin: { type: Boolean, value: false }
         };
       }
 
@@ -48,23 +63,15 @@
           'url',
           'username',
           'password',
-          'plugin',
           'width',
-          'height'
+          'height',
+          'splash',
+          'schema',
+          'cube',
+          'plugin'
         ];
       }
 
-      // Invoked the first time the element is added to the DOM.
-      ready() {
-        if (!this.url) {
-          this.textContent = 'The url property was not included';
-        }
-        else if (!this.username && !this.password) {
-          this.textContent = 'The username and password properties was not included';
-        }
-      }
-
-      // Called when the element is added to a document.
       connectedCallback() {
         const iframe = this.shadowRoot.querySelector('iframe');
         iframe.width = `${this.width}px`;
@@ -72,13 +79,15 @@
         iframe.src = this.getInlineFrameSource();
       }
 
-      // Called when any of the element's attributes are changed, appended, removed, or replaced.
       attributeChangedCallback(attributeName, oldValue, newValue) {
         const iframe = this.shadowRoot.querySelector('iframe');
         switch (attributeName) {
           case 'width':
           case 'height':
-            iframe[attributeName] = `${newValue}px`;
+            this[attributeName] = newValue;
+            break;
+          case 'plugin':
+            this[attributeName] = this._isAttributeTrueFromMarkup(newValue);
             break;
           default:
             iframe.src = this.getInlineFrameSource();
@@ -91,7 +100,9 @@
       }
 
       set url(newValue) {
-        this.setAttribute('url', newValue);
+        if (this.url !== newValue) {
+          this.setAttribute('url', newValue);
+        }
       }
 
       get username() {
@@ -99,7 +110,9 @@
       }
 
       set username(newValue) {
-        this.setAttribute('username', newValue);
+        if (this.username !== newValue) {
+          this.setAttribute('username', newValue);
+        }
       }
 
       get password() {
@@ -107,15 +120,9 @@
       }
 
       set password(newValue) {
-        this.setAttribute('password', newValue);
-      }
-
-      get plugin() {
-        return this.getAttribute('plugin');
-      }
-
-      set plugin(newValue) {
-        this.setAttribute('plugin', newValue);
+        if (this.password !== newValue) {
+          this.setAttribute('password', newValue);
+        }
       }
 
       get width() {
@@ -123,7 +130,9 @@
       }
 
       set width(newValue) {
-        this.setAttribute('width', newValue);
+        if (this.width !== newValue) {
+          this.setAttribute('width', newValue);
+        }
       }
 
       get height() {
@@ -131,7 +140,49 @@
       }
 
       set height(newValue) {
-        this.setAttribute('height', newValue);
+        if (this.height !== newValue) {
+          this.setAttribute('height', newValue);
+        }
+      }
+
+      get splash() {
+        return this.getAttribute('splash');
+      }
+
+      set splash(newValue) {
+        if (this.splash !== newValue) {
+          this.setAttribute('splash', newValue);
+        }
+      }
+
+      get schema() {
+        return this.getAttribute('schema');
+      }
+
+      set schema(newValue) {
+        if (this.schema !== newValue) {
+          this.setAttribute('schema', newValue);
+        }
+      }
+
+      get cube() {
+        return this.getAttribute('cube');
+      }
+
+      set cube(newValue) {
+        if (this.cube !== newValue) {
+          this.setAttribute('cube', newValue);
+        }
+      }
+
+      get plugin() {
+        return this.getAttribute('plugin');
+      }
+
+      set plugin(newValue) {
+        if (this.plugin !== newValue.toString()) {
+          this.setAttribute('plugin', newValue);
+        }
       }
 
       getInlineFrameSource() {
@@ -139,8 +190,15 @@
 
         return decodeURIComponent(src);
       }
+
+      _isAttributeTrueFromMarkup(obj) {
+        return obj === true || obj === 'true' ||
+               obj === '' ||
+               obj.length === 0 ||
+               toString.call(obj) === '[object Boolean]';
+      }
     }
 
-    customElements.define(SaikuEmbed.is, SaikuEmbed);
+    window.customElements.define(SaikuEmbed.is, SaikuEmbed);
   </script>
 </dom-module>

@@ -1,0 +1,31 @@
+{
+  "name": "saiku-embed-element",
+  "homepage": "https://github.com/OSBI/saiku-embed-element",
+  "version": "1.0.0",
+  "authors": [
+    "brenopolanski <breno.polanski@gmail.com>"
+  ],
+  "description": "A web component to embed Saiku Analytics",
+  "main": "saiku-embed.html",
+  "keywords": [
+    "web-components",
+    "polymer",
+    "saiku",
+    "embed"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/OSBI/saiku-embed-element"
+  },
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "^2.1.0"
+  }
+}
