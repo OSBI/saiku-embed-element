@@ -51,9 +51,9 @@
           password: String,
           width: { type: String, value: '800' },
           height: { type: String, value: '600' },
-          splash: Boolean,
           schema: String,
           cube: String,
+          splash: { type: Boolean, value: true },
           plugin: { type: Boolean, value: false }
         };
       }
@@ -65,17 +65,17 @@
           'password',
           'width',
           'height',
-          'splash',
           'schema',
           'cube',
+          'splash',
           'plugin'
         ];
       }
 
       connectedCallback() {
         const iframe = this.shadowRoot.querySelector('iframe');
-        iframe.width = `${this.width}px`;
-        iframe.height = `${this.height}px`;
+        iframe.width = this.width;
+        iframe.height = this.height;
         iframe.src = this.getInlineFrameSource();
       }
 
@@ -85,6 +85,9 @@
           case 'width':
           case 'height':
             this[attributeName] = newValue;
+            break;
+          case 'splash':
+            this[attributeName] = this._isAttributeTrueFromMarkup(newValue);
             break;
           case 'plugin':
             this[attributeName] = this._isAttributeTrueFromMarkup(newValue);
@@ -145,16 +148,6 @@
         }
       }
 
-      get splash() {
-        return this.getAttribute('splash');
-      }
-
-      set splash(newValue) {
-        if (this.splash !== newValue) {
-          this.setAttribute('splash', newValue);
-        }
-      }
-
       get schema() {
         return this.getAttribute('schema');
       }
@@ -175,6 +168,16 @@
         }
       }
 
+      get splash() {
+        return this.getAttribute('splash');
+      }
+
+      set splash(newValue) {
+        if (this.splash !== newValue.toString()) {
+          this.setAttribute('splash', newValue);
+        }
+      }
+
       get plugin() {
         return this.getAttribute('plugin');
       }
@@ -186,7 +189,10 @@
       }
 
       getInlineFrameSource() {
-        let src = `${this.url}?username=${this.username}&password=${this.password}&plugin=${this.plugin}`;
+
+        console.log(this.attributes)
+
+        let src = `${this.url}?username=${this.username}&password=${this.password}&splash=${this.splash}&plugin=${this.plugin}`;
 
         return decodeURIComponent(src);
       }
