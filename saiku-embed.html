@@ -34,9 +34,10 @@
           mode: 'open'
         }).innerHTML = SaikuEmbed.template.innerHTML;
 
-
         if (!this.url) {
-          this.textContent = 'The url attribute is not included. Go to https://github.com/OSBI/saiku-embed-element#saiku-embed-element and see the documentation.';
+          this.textContent = `The url attribute is not included.
+            Go to https://github.com/OSBI/saiku-embed-element#saiku-embed-element
+            and see the documentation.`;
         }
       }
 
@@ -81,14 +82,13 @@
 
       attributeChangedCallback(attributeName, oldValue, newValue) {
         const iframe = this.shadowRoot.querySelector('iframe');
+
         switch (attributeName) {
           case 'width':
           case 'height':
             this[attributeName] = newValue;
             break;
           case 'splash':
-            this[attributeName] = this._isAttributeTrueFromMarkup(newValue);
-            break;
           case 'plugin':
             this[attributeName] = this._isAttributeTrueFromMarkup(newValue);
             break;
@@ -189,19 +189,74 @@
       }
 
       getInlineFrameSource() {
+        const params = this._getAttributesParams();
+        const src = this._requestUrl(this.url, params);
 
-        console.log(this.attributes)
-
-        let src = `${this.url}?username=${this.username}&password=${this.password}&splash=${this.splash}&plugin=${this.plugin}`;
-
-        return decodeURIComponent(src);
+        return window.decodeURIComponent(src);
       }
 
       _isAttributeTrueFromMarkup(obj) {
-        return obj === true || obj === 'true' ||
+        return obj === true ||
+               obj === 'true' ||
                obj === '' ||
                obj.length === 0 ||
                toString.call(obj) === '[object Boolean]';
+      }
+
+      _getAttributesParams() {
+        let params = {};
+        let attrName;
+
+        for (let i = 0; i < this.attributes.length; i++) {
+          if (SaikuEmbed.properties.hasOwnProperty(this.attributes[i].name) &&
+              (this.attributes[i].name !== 'url' &&
+               this.attributes[i].name !== 'width' &&
+               this.attributes[i].name !== 'height')) {
+
+            attrName = this.attributes[i].name;
+            params[attrName] = this.attributes[i].value;
+          }
+        }
+
+        return params;
+      }
+
+      _queryString(params) {
+        const queryParts = [];
+        let param;
+        let value;
+
+        for (param in params) {
+          value = params[param];
+          param = window.encodeURIComponent(param);
+
+          if (Array.isArray(value)) {
+            for (let i = 0; i < value.length; i++) {
+              queryParts.push(`${param}=${window.encodeURIComponent(value[i])}`);
+            }
+          }
+          else if (value !== null) {
+            queryParts.push(`${param}=${window.encodeURIComponent(value)}`);
+          }
+          else {
+            queryParts.push(param);
+          }
+        }
+
+        return queryParts.join('&');
+      }
+
+      _requestUrl(url, params) {
+        const queryString = this._queryString(params);
+        const newUrl = url || '';
+
+        if (queryString) {
+          const bindingChar = newUrl.indexOf('?') >= 0 ? '&' : '?';
+
+          return newUrl + bindingChar + queryString;
+        }
+
+        return newUrl;
       }
     }
 
