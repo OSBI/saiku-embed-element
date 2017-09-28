@@ -27,6 +27,9 @@
      * @demo demo/index.html
      */
     class SaikuEmbed extends Polymer.Element {
+
+      static get is() { return 'saiku-embed'; }
+
       constructor() {
         super();
 
@@ -41,10 +44,6 @@
         }
       }
 
-      static get is() {
-        return 'saiku-embed';
-      }
-
       static get properties() {
         return {
           url: String,
@@ -54,8 +53,14 @@
           height: { type: String, value: '600' },
           schema: String,
           cube: String,
+          default_mdx_filter: String,
+          default_mdx_filter_rows: String,
+          default_mdx_filter_columns: String,
+          lang: String,
           splash: { type: Boolean, value: true },
-          plugin: { type: Boolean, value: false }
+          plugin: { type: Boolean, value: false },
+          hide_workspace_icons: { type: Boolean, value: false },
+          show_help: { type: Boolean, value: false }
         };
       }
 
@@ -68,8 +73,14 @@
           'height',
           'schema',
           'cube',
+          'default_mdx_filter',
+          'default_mdx_filter_rows',
+          'default_mdx_filter_columns',
+          'lang',
           'splash',
-          'plugin'
+          'plugin',
+          'hide_workspace_icons',
+          'show_help'
         ];
       }
 
@@ -90,6 +101,8 @@
             break;
           case 'splash':
           case 'plugin':
+          case 'hide_workspace_icons':
+          case 'show_help':
             this[attributeName] = this._isAttributeTrueFromMarkup(newValue);
             break;
           default:
@@ -168,6 +181,46 @@
         }
       }
 
+      get default_mdx_filter() {
+        return this.getAttribute('default_mdx_filter');
+      }
+
+      set default_mdx_filter(newValue) {
+        if (this.default_mdx_filter !== newValue) {
+          this.setAttribute('default_mdx_filter', newValue);
+        }
+      }
+
+      get default_mdx_filter_rows() {
+        return this.getAttribute('default_mdx_filter_rows');
+      }
+
+      set default_mdx_filter_rows(newValue) {
+        if (this.default_mdx_filter_rows !== newValue) {
+          this.setAttribute('default_mdx_filter_rows', newValue);
+        }
+      }
+
+      get default_mdx_filter_columns() {
+        return this.getAttribute('default_mdx_filter_columns');
+      }
+
+      set default_mdx_filter_columns(newValue) {
+        if (this.default_mdx_filter_columns !== newValue) {
+          this.setAttribute('default_mdx_filter_columns', newValue);
+        }
+      }
+
+      get lang() {
+        return this.getAttribute('lang');
+      }
+
+      set lang(newValue) {
+        if (this.lang !== newValue) {
+          this.setAttribute('lang', newValue);
+        }
+      }
+
       get splash() {
         return this.getAttribute('splash');
       }
@@ -185,6 +238,26 @@
       set plugin(newValue) {
         if (this.plugin !== newValue.toString()) {
           this.setAttribute('plugin', newValue);
+        }
+      }
+
+      get hide_workspace_icons() {
+        return this.getAttribute('hide_workspace_icons');
+      }
+
+      set hide_workspace_icons(newValue) {
+        if (this.hide_workspace_icons !== newValue.toString()) {
+          this.setAttribute('hide_workspace_icons', newValue);
+        }
+      }
+
+      get show_help() {
+        return this.getAttribute('show_help');
+      }
+
+      set show_help(newValue) {
+        if (this.show_help !== newValue.toString()) {
+          this.setAttribute('show_help', newValue);
         }
       }
 
