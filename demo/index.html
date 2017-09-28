@@ -18,11 +18,18 @@
     </custom-style>
   </head>
   <body>
-    <div class="horizontal-section-container centered">
+    <div class="vertical-section-container centered">
       <h3>Basic saiku-embed demo</h3>
       <demo-snippet>
         <template>
-          <saiku-embed url="http://localhost:8080/" username="breno" password="user" width="1000" height="650"></saiku-embed>
+          <saiku-embed
+            url="http://localhost:3000/"
+            username="admin" password="admin"
+            width="800" height="650"
+            schema="FoodMart" cube="Sales"
+            default_mdx_filter_rows="([Store].[Stores].[Store Name], [Time].[Year].currentmember.name=1997)"
+            splash="false"
+          />
         </template>
       </demo-snippet>
     </div>

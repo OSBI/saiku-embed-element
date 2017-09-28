@@ -57,6 +57,8 @@
           default_mdx_filter_rows: String,
           default_mdx_filter_columns: String,
           lang: String,
+          mode: String,
+          path_file_saiku: String,
           splash: { type: Boolean, value: true },
           plugin: { type: Boolean, value: false },
           hide_workspace_icons: { type: Boolean, value: false },
@@ -77,6 +79,8 @@
           'default_mdx_filter_rows',
           'default_mdx_filter_columns',
           'lang',
+          'mode',
+          'path_file_saiku',
           'splash',
           'plugin',
           'hide_workspace_icons',
@@ -218,6 +222,26 @@
       set lang(newValue) {
         if (this.lang !== newValue) {
           this.setAttribute('lang', newValue);
+        }
+      }
+
+      get mode() {
+        return this.getAttribute('mode');
+      }
+
+      set mode(newValue) {
+        if (this.mode !== newValue) {
+          this.setAttribute('mode', newValue);
+        }
+      }
+
+      get path_file_saiku() {
+        return this.getAttribute('path_file_saiku');
+      }
+
+      set path_file_saiku(newValue) {
+        if (this.path_file_saiku !== newValue) {
+          this.setAttribute('path_file_saiku', newValue);
         }
       }
 
