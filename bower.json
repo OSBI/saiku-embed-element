@@ -17,7 +17,7 @@
     "type": "git",
     "url": "git://github.com/OSBI/saiku-embed-element"
   },
-  "license": "MIT",
+  "license": "Apache-2.0",
   "ignore": [
     "**/.*",
     "node_modules",
