@@ -59,18 +59,40 @@ Attribute                    | Options                                          
 `password`                   | *String*                                                                                                   |         | Password to access Saiku.
 `width`                      | *String*                                                                                                   | `800`   | The `width` attribute specifies the width of an `<saiku-embed>`, in pixels.
 `height`                     | *String*                                                                                                   | `600`   | The `height` attribute specifies the height of an `<saiku-embed>`, in pixels.
-`schema`                     | *String*                                                                                                   |         | Schema name. `e.g: FoodMart`
-`cube`                       | *String*                                                                                                   |         | Cube name. `e.g: Sales`
-`default_mdx_filter`         | *String*                                                                                                   |         |
-`default_mdx_filter_rows`    | *String*                                                                                                   |         |
-`default_mdx_filter_columns` | *String*                                                                                                   |         |
+`schema`                     | *String*                                                                                                   |         | Schema name. e.g: `FoodMart`
+`cube`                       | *String*                                                                                                   |         | Cube name. e.g: `Sales`
+`default_mdx_filter`         | *String*                                                                                                   |         | Extend `default_mdx_filter` to add level to filter axis.
+`default_mdx_filter_rows`    | *String*                                                                                                   |         | Extend `default_mdx_filter_rows` to add level to rows axis.
+`default_mdx_filter_columns` | *String*                                                                                                   |         | Extend `default_mdx_filter_columns` to add level to columns axis.
 `lang`                       | `cn`, `cs`, `de`, `en`, `es`, `fi`, `fr`, `hr`, `hu`, `it`, `ja`, `ko`, `lt`, `nb`, `nl`, `pl`, `pt`, `ru` |         | Specifies the language to be used.
 `mode`                       | `view`, `edit`, `table`, `chart`, `map`                                                                    |         | Specifies the mode to use when opening a Saiku file.
-`path_file_saiku`            | *String*                                                                                                   |         | The path of your Saiku file. `/homes/home:admin/example.saiku`
+`path_file_saiku`            | *String*                                                                                                   |         | The path of your Saiku file. e.g: `/homes/home:admin/example.saiku`
 `splash`                     | *Boolean*                                                                                                  | `true`  | Enable or disable splash screen.
 `plugin`                     | *Boolean*                                                                                                  | `false` | Work in plugin mode.
 `hide_workspace_icons`       | *Boolean*                                                                                                  | `false` | Hide some icons on Saiku Toolbar.
 `show_help`                  | *Boolean*                                                                                                  | `false` | Show help using [intro.js](http://introjs.com/).
+
+## Development
+
+In order to run it locally you'll need to fetch some dependencies.
+
+1. Install [Bower](http://bower.io/) & [Polymer CLI](https://www.npmjs.com/package/polymer-cli):
+
+    ```sh
+    $ [sudo] npm install -g bower polymer-cli
+    ```
+
+2. Install local dependencies:
+
+    ```sh
+    $ bower install
+    ```
+
+3. To test the project, start the development server and open `http://localhost:8081`.
+
+    ```sh
+    $ polymer serve
+    ```
 
 ## Browser Support
 
@@ -81,24 +103,6 @@ Attribute                    | Options                                          
 ![Opera](https://raw.github.com/alrra/browser-logos/master/src/opera/opera_48x48.png)
 --- | --- | --- | --- | --- |
 Chrome or Chromium version 49 or later ✔ | Firefox 51 or later ✔ | Edge 15.15063 or later ✔ | Safari or Mobile Safari 10 or later ✔ | Opera 36 or later ✔ |
-
-## Install the Polymer-CLI
-
-First, make sure you have the [Polymer CLI](https://www.npmjs.com/package/polymer-cli) installed. Then run `polymer serve` to serve your element locally.
-
-## Viewing Your Element
-
-```
-$ polymer serve
-```
-
-## Running Tests
-
-```
-$ polymer test
-```
-
-Your application is already set up to be tested via [web-component-tester](https://github.com/Polymer/web-component-tester). Run `polymer test` to run your application's test suite locally.
 
 ## Contributing
 
