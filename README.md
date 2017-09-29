@@ -2,6 +2,8 @@
 
 > A web component to embed Saiku Analytics using [Polymer](https://www.polymer-project.org/).
 
+[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/OSBI/saiku-embed-element)
+
 ## Install
 
 Install the component using [Bower](https://bower.io/):
@@ -40,12 +42,20 @@ Here's an example of basic usage:
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
     <title>saiku-embed demo</title>
+
+    <!-- Polyfill Web Components support for older browsers -->
     <script src="./bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+
+    <!-- Import element -->
     <link rel="import" href="./bower_components/saiku-embed/saiku-embed.html">
   </head>
   <body>
+
+    <!-- Use element -->
     <saiku-embed url="http://localhost:8080/" username="admin" password="admin"></saiku-embed>
+
   </body>
 </html>
 ```

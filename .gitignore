@@ -1,11 +1,4 @@
-
-# Created by https://www.gitignore.io/api/vim,git,node,linux,macos,windows,webstorm,jetbrains,sublimetext,visualstudiocode,bower
-
-### Bower ###
-bower_components
-.bower-cache
-.bower-registry
-.bower-tmp
+# Created by https://www.gitignore.io/api/vim,git,node,linux,macos,windows,webstorm,jetbrains,sublimetext,visualstudiocode
 
 ### Git ###
 *.orig
@@ -141,6 +134,7 @@ coverage
 .grunt
 
 # Bower dependency directory (https://bower.io/)
+bower_components
 
 # node-waf configuration
 .lock-wscript
@@ -286,4 +280,4 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.gitignore.io/api/vim,git,node,linux,macos,windows,webstorm,jetbrains,sublimetext,visualstudiocode,bower
+# End of https://www.gitignore.io/api/vim,git,node,linux,macos,windows,webstorm,jetbrains,sublimetext,visualstudiocode

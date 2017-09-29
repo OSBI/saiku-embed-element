@@ -6,41 +6,16 @@
 
     <title>saiku-embed demo</title>
 
-    <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <!-- Polyfill Web Components support for older browsers -->
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
 
-    <link rel="import" href="../bower_components/iron-demo-helpers/demo-pages-shared-styles.html">
-    <link rel="import" href="../bower_components/iron-demo-helpers/demo-snippet.html">
-    <link rel="import" href="../saiku-embed.html">
-
-    <custom-style>
-      <style is="custom-style" include="demo-pages-shared-styles">
-      </style>
-    </custom-style>
+    <!-- Import element -->
+    <link rel="import" href="../saiku-embed/saiku-embed.html">
   </head>
   <body>
-    <div class="vertical-section-container centered">
-      <h3>Basic saiku-embed demo</h3>
-      <demo-snippet>
-        <template>
-          <!-- <saiku-embed
-            url="http://localhost:3000/"
-            username="admin" password="admin"
-            width="800" height="650"
-            schema="FoodMart" cube="Sales"
-            default_mdx_filter_rows="([Store].[Stores].[Store Name], [Time].[Year].currentmember.name=1997)"
-            splash="false"
-          /> -->
 
-          <saiku-embed
-            url="http://localhost:3000/"
-            username="admin" password="admin"
-            mode="table"
-            path_file_saiku="/homes/home:admin/test2.saiku"
-            width="800" height="650"
-            plugin
-          />
-        </template>
-      </demo-snippet>
-    </div>
+    <!-- Use element -->
+    <saiku-embed url="http://localhost:8080/" username="admin" password="admin"></saiku-embed>
+
   </body>
 </html>
