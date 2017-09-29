@@ -166,7 +166,7 @@
       }
 
       get schema() {
-        return this.getAttribute('schema');
+        return this.getAttribute('schema') || '';
       }
 
       set schema(newValue) {
@@ -176,7 +176,7 @@
       }
 
       get cube() {
-        return this.getAttribute('cube');
+        return this.getAttribute('cube') || '';
       }
 
       set cube(newValue) {
@@ -186,7 +186,7 @@
       }
 
       get default_mdx_filter() {
-        return this.getAttribute('default_mdx_filter');
+        return this.getAttribute('default_mdx_filter') || '';
       }
 
       set default_mdx_filter(newValue) {
@@ -196,7 +196,7 @@
       }
 
       get default_mdx_filter_rows() {
-        return this.getAttribute('default_mdx_filter_rows');
+        return this.getAttribute('default_mdx_filter_rows') || '';
       }
 
       set default_mdx_filter_rows(newValue) {
@@ -206,7 +206,7 @@
       }
 
       get default_mdx_filter_columns() {
-        return this.getAttribute('default_mdx_filter_columns');
+        return this.getAttribute('default_mdx_filter_columns') || '';
       }
 
       set default_mdx_filter_columns(newValue) {
@@ -216,7 +216,7 @@
       }
 
       get lang() {
-        return this.getAttribute('lang');
+        return this.getAttribute('lang') || '';
       }
 
       set lang(newValue) {
@@ -226,7 +226,7 @@
       }
 
       get mode() {
-        return this.getAttribute('mode');
+        return this.getAttribute('mode') || '';
       }
 
       set mode(newValue) {
@@ -236,7 +236,7 @@
       }
 
       get path_file_saiku() {
-        return this.getAttribute('path_file_saiku');
+        return this.getAttribute('path_file_saiku') || '';
       }
 
       set path_file_saiku(newValue) {
@@ -289,6 +289,12 @@
         const params = this._getAttributesParams();
         const src = this._requestUrl(this.url, params);
 
+        if (this.path_file_saiku) {
+          let pathFileSaiku = `#query/open/${this.path_file_saiku}`;
+
+          return window.decodeURIComponent(src + pathFileSaiku);
+        }
+
         return window.decodeURIComponent(src);
       }
 
@@ -307,6 +313,7 @@
         for (let i = 0; i < this.attributes.length; i++) {
           if (SaikuEmbed.properties.hasOwnProperty(this.attributes[i].name) &&
               (this.attributes[i].name !== 'url' &&
+               this.attributes[i].name !== 'path_file_saiku' &&
                this.attributes[i].name !== 'width' &&
                this.attributes[i].name !== 'height')) {
 
