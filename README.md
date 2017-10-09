@@ -124,4 +124,4 @@ For detailed changelog, see [Releases](https://github.com/OSBI/saiku-embed-eleme
 
 ## License
 
-[Apache License Version 2](https://github.com/OSBI/saiku-embed-element/blob/master/LICENSE) © Meteorite BI
+[Apache License Version 2](https://github.com/OSBI/saiku_community_website/blob/master/LICENSE) © [Meteorite BI](http://www.meteorite.bi/)
